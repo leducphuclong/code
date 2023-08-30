@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1602153906 source:d:\cpp\cpp_of_cb\rc_dao_so\main.cpp
+	<iostream>
+	<cstdlib>
+	<string>
+	<sstream>
+

@@ -1,0 +1,11 @@
+---
+Language:        Cpp
+SortIncludes:    true
+IncludeCategories:
+  - Regex:          '.*\.h'
+    Priority:       1
+  - Regex:          '.*\.hpp'
+    Priority:       2
+  - Regex:          '<.*>'
+    Priority:       2
+...

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1602319630 source:d:\cpp\cpp_of_cb\binary_search\main.cpp
+	<iostream>
+	<cstdlib>
+	<array>
+	<ctime>
+

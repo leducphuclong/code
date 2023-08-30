@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1602001056 source:d:\cpp\cpp_of_cb\rc_hoanvi\main.cpp
+	<iostream>
+	<array>
+	<cstdlib>
+	<cmath>
+

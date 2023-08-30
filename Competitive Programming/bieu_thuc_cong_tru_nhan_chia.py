@@ -1,0 +1,15 @@
+# Copyright (c) 2023, Le Duc Phuc Long
+"""
+If you don't think twice, you have to code twice.
+"""
+
+s = input()
+arr = []
+
+while s != '=':
+    arr.append(s)
+    s = input()
+
+epr = ''.join(arr)
+
+print(eval(epr))

@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1602639826 source:d:\cpp\cpp_of_cb\rc_phan_tich_so_nt\main.cpp
+	<iostream>
+	<fstream>
+	<array>
+	<cstdlib>
+	<cmath>
+	<string>
+

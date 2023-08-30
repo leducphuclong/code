@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1601543806 source:d:\cpp\cpp_of_cb\dp_bag\dp_bag.cpp
+	<iostream>
+	<fstream>
+	<cstdlib>
+	<array>
+	<unistd.h>
+

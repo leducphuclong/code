@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1601176676 source:d:\cpp\cpp_of_cb\rc_xauchung\main.cpp
+	<iostream>
+	<array>
+
+1602131878 source:d:\cpp\test.cpp
+	<iostream>
+	<string>
+	<sstream>
+
