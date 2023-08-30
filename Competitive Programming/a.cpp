@@ -18,9 +18,9 @@ typedef int64_t lo;
 // Constant
 
 // Declare global variables.
-// End of global variable declaration.
 
 void precompute() {
+    
 }
 
 void solve() {
