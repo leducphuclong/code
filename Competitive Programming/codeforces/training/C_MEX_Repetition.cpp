@@ -26,37 +26,32 @@ void precompute() {
 void solve() {
     lo n, k;
     cin >> n >> k;
-    cin.ignore();
-    string str;
-    getline(cin, str, nln);
-    if (k % 2 == 0) {
-        sort(str.begin(), str.end());
-        cout << str << nln;
-        return;
+    lo a[n+1];  // NOLINT
+    map<lo, bool> mark;
+    for (lo i = 1; i <= n; ++i) {
+        cin >> a[i];
+        mark[a[i]] = 1;
     }
-    string odd = "", eve = "";
-    for (lo i = 0; i < static_cast<lo>(str.size()); ++i)
-        if (i % 2)
-            odd += str[i];
-        else
-            eve += str[i];
+    for (lo i = 0; i <= n; ++i)
+        if (!mark[i]) {
+            a[0] = i;
+            break;
+        }
 
-    sort(odd.begin(), odd.end());
-    sort(eve.begin(), eve.end());
+    lo b[n+1];  // NOLINT
+    for (lo i = 0; i <= n; ++i) {
+        // cout << (i+(k%(n+1)))%(n+1) << " := " << i << nln;
+        b[(i+(k%(n+1)))%(n+1)] = a[i];
+    }
 
-
-    string ans = "";
-    lo io = 0, ie = 0;
-    for (lo i = 0; i < static_cast<lo>(str.size()); ++i)
-        if (i % 2)
-            ans += odd[io], io++;
-        else
-            ans += eve[ie], ie++;
-
-    cout << ans << nln;
+    for (lo i = 1; i <= n; ++i)
+        cout << b[i] << ' ';
+    cout << nln;
 }
 
 int main(int argc, char* argv[]) {
+    cout << "Hmmmmbnbbbhaa" << nln;
+    return 0;
     cin.tie(0)->sync_with_stdio(0);
     cout.tie(0)->sync_with_stdio(0);
     int T = 1;
