@@ -1,8 +1,6 @@
 {
+    "cph.general.saveLocation": "",
     "files.associations": {
-        "ostream": "cpp",
         "iostream": "cpp"
-    },
-    "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 100,
+    }
 }
