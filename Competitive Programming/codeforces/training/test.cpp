@@ -21,5 +21,7 @@ int main() {
     for (lo i = 1; i <= n; ++i)
         pfs[i] = pfs[i-1] + arr[i-1];
     // Solve
+    for (lo i = )
+
     return 0;
 }
