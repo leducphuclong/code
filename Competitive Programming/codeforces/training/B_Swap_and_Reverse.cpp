@@ -3,8 +3,6 @@
 using namespace std;
 
 int main() {
-    cout << "hi" << endl;
-    cin.ignore(arr[i]);
-    
+    cout << "5" << endl;
     return 0;
 }   

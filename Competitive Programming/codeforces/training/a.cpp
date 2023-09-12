@@ -2,71 +2,77 @@
 
 /*If you don't think twice, you have to code twice.*/
 
-// Include
-#include <bits/stdc++.h>  // NOLINT
-// #include <conio.h>
+#include <conio.h>
+#include <chrono> // NOLINT
+#include <cstdio>
+#include <cstring>
+#include <ctime>
+#include <fstream>
+#include <iostream>
+#include <thread> // NOLINT
+#include <random>
+#include <cassert>
 
-// Namespace
-using namespace std;  // NOLINT
+using namespace std; // NOLINT
 
-// Define
-#define nln '\n'
-
-// Typedef and Struct
 typedef int64_t lo;
 
-// Constant
+#define nln '\n'
 
-// Declare global variables.
-// End of global variable declaration.
+const lo N = 1e1, M = 1e1, C = 1e4;
+const char file_name_of_problem[] = "";
 
-void precompute() {
+mt19937 rand_t(chrono::steady_clock::now().time_since_epoch().count());
+//  This sets the seed for the Mersenne Twister engine to the current time
+//  in milliseconds since the Unix epoch. (for the random)
+
+lo random(lo miv, lo mav) {
+    assert(miv <= mav);
+    return miv + abs(rand_t() * 1LL * rand_t()) % (mav-miv+1);
 }
 
-void solve() {
-    // Input
-    lo n;
-    cin >> n;
-    vector<lo> a(n), b(n);
-    for (auto &v : a)
-        cin >> v;
-    for (auto &v : b)
-        cin >> v;
-    lo m;
-    cin >> m;
-    vector<lo> c(m), d(m);
-    for (auto &v : c)
-        cin >> v;
-    for (auto &v : d) 
-        cin >> v;
-    // Solve
-    map<lo, lo> max_exp;
-    set<lo> primes;
-    for (lo i = 0; i < n; ++i) {
-        max_exp[a[i]] = b[i];
-        primes.insert(a[i]);
-    }
-    map<lo, lo> min_exp;
-    for (lo i = 0; i < m; ++i) {
-        min_exp[c[i]] = d[i];
-        primes.insert(c[i]);
-    }
-    for (auto v : primes) {
-        cout << v << nln;
-        cout << "min e: " << min_exp[v] << nln;
-        cout << "max e: " << max_exp[v] << nln;
+char *concat(const char *a, const char *b) {
+    // allocate memory for concatenated string
+    char *result = new char[strlen(a) + strlen(b) + 1];
+    // copy string a to result
+    snprintf(result, strlen(a) + strlen(b) + 1, "%s%s", a, b);
+    return result;
+}
+
+void generate() {
+    fstream fi;
+    fi.open(concat(file_name_of_problem, ".inp"), ios::out);
+    fi << 1 << nln;
+    fi.close();
+}
+
+bool compare(lo t, lo T) {
+    cout << t << "/" << T << nln;
+    system(concat(file_name_of_problem, ".exe"));
+    system(concat(file_name_of_problem, "_bruteforce.exe"));
+    char *nfc = concat("fc ", concat(concat(file_name_of_problem, ".out "),
+                                   concat(file_name_of_problem, ".ans > nul")));
+    if (system(nfc) == 0) {
+        cout << "Test case " << t << " passed, Long." << endl;
+        return true;
+    } else {
+        cout << "Test case " << t << " failed, Long." << endl;
+        return false;
     }
 }
 
-int main(int argc, char* argv[]) {
-    cin.tie(0)->sync_with_stdio(0);
-    cout.tie(0)->sync_with_stdio(0);
-    int T = 1;
-    // cin >> T;
-    precompute();
-    while (T--) {
-        solve();
+int main() {
+    srand(time(NULL));  // Seed of random is time
+    lo T;
+    cout << "How many test do you want to run, Long? ";
+    cin >> T;
+    cout << "Ok You want " << T << " testcases." << nln;
+    chrono::seconds delay(2);
+    this_thread::sleep_for(delay);
+    for (lo t = 1; t <= T; ++t) {
+        generate();
+        if (compare(t, T) == false)
+            break;
     }
-    cerr << "It's ok Long, Good for now !!" << nln;
     return 0;
 }
