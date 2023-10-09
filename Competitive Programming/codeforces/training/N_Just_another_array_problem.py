@@ -22,18 +22,18 @@ def invr():
     return map(int, input().split())
 
 ############ ---- Other Functions ---- ############
-def first_index(arr, x):
-    index = bisect_left(arr, x)
-    if index < len(arr) and arr[index] == x:
-        return index
-    else:
-        return -1
 # Precompute
     
 # Main function
 # sys.stdin = open('in.txt', 'r')
 n = inp()
 arr = inlt()
+l, r = defaultdict(lambda: -1), defaultdict(lambda: -1)
+for i in range(n):
+    if l[arr[i]] == -1:
+        l[arr[i]] = i
+    r[arr[i]] = i 
+
 q = inp()
 sft = 0
 for _ in range(q):
@@ -42,14 +42,12 @@ for _ in range(q):
     if x == 's':
         sft += y
     else:
-        pos = first_index(arr, y)
-        if pos == -1:
+        if r[y] == -1:
             print(-1)
         else:
-            pos += (sft%n)
-            print((pos+n) % n + 1)
-            # if pos >= 0:
-            #     print(pos%n+1)
-            # else:
-            #     print(pos+n+1)
-    
+            left = (l[y]+sft%n+n)%n
+            right = (r[y]+sft%n+n)%n
+            if left <= right:
+                print(left+1)
+            else:
+                print(1)

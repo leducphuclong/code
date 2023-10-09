@@ -1,2 +1,4 @@
-n;
-            // cout << "num:" << num << nln;
+cout << "hi" << nln;
+    // for (auto v : dig)
+    //     cout << v << ' ';
+    // cout << nln;

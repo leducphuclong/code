@@ -1,0 +1,13 @@
+G:\code\Competitive Programming\pratice\dp\Partition_array_to_K_subsets.cpp: In member function 'bool Solution::isKPartitionPossible(int*, int, int)':
+G:\code\Competitive Programming\pratice\dp\Partition_array_to_K_subsets.cpp:23:46: error: 'arr' was not declared in this scope
+   23 |                 if (!(i & (1 << j)) && dp[i]+arr[i] <= tar)
+      |                                              ^~~
+G:\code\Competitive Programming\pratice\dp\Partition_array_to_K_subsets.cpp:23:56: error: 'tar' was not declared in this scope; did you mean 'tan'?
+   23 |                 if (!(i & (1 << j)) && dp[i]+arr[i] <= tar)
+      |                                                        ^~~
+      |                                                        tan
+G:\code\Competitive Programming\pratice\dp\Partition_array_to_K_subsets.cpp: In function 'int main()':
+G:\code\Competitive Programming\pratice\dp\Partition_array_to_K_subsets.cpp:33:21: error: 'nln' was not declared in this scope; did you mean 'nan'?
+   33 |     cerr << "hi" << nln;
+      |                     ^~~
+      |                     nan

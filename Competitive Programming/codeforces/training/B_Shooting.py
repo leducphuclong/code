@@ -1,32 +1,30 @@
-# Copyright (c) 2023, Le Duc Phuc Long
-
-# If you don't think twice, you have to code twice.
-
-# Import session
 import sys
-from collections import defaultdict
-from math import comb
-import functools
 
+input = sys.stdin.readline
 
-############ ---- Input Functions ---- ############
-def inp():
-    return int(input())
+MOD = 1000000007 
 
-def inlt():
-    return list(map(int, input().split()))
+n, k, p = map(int, input().split())
 
-def instr():
-    return list(input().strip())
+dp = [[0 for __ in range(n*k+1)] for _ in range(n+1)]
 
-def invr():
-    return map(int, input().split())
+dp[0][0] = 1
 
-############ ---- Other Functions ---- ############
-# Precompute
+for i in range(1, n+1):     
+    pfs = [0]*(n*k+1)
+    pfs[0] = dp[i-1][0]
+    for j in range(1, k*n+1):
+        pfs[j] = pfs[j-1] + dp[i-1][j]
+        pfs[j] %= MOD
+    for j in range(1, n*k+1):
+        dp[i][j] += pfs[j-1]
+        # dp[i][j] -= pfs[max(0, j-k-1)]
+        if j-k-1 >= 0:
+            dp[i][j] -= pfs[j-k-1]
+        dp[i][j] += MOD; dp[i][j] %= MOD
+
+ans = 0
+for i in range(p+1, n*k+1):
+    ans += dp[n][i]; ans %= MOD
     
-# Main function
-sys.stdin = open('in.txt', 'r')
-n, k, p = invr()
-mn, mx = p, k*n
-
+print(ans%MOD)

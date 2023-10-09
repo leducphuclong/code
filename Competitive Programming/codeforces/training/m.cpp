@@ -48,9 +48,9 @@ void solve() {
             lo pos = find(arr, x);
             if (pos != -1) {
                 if (s % x > 0) {
-                    pos += s%x, pos %= n;
+                    pos = (pos+s%n)%n;
                 } else if (s % x < 0)
-                    pos += (s%x+n)%n, pos = (pos+n)%n
+                    pos = (pos+s%n+n);
             }
         }
     }

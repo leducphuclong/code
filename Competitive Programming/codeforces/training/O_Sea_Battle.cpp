@@ -27,16 +27,6 @@ pair<lo, lo> dir[] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 void precompute() {
 }
 
-void dfs(lo x, lo y, lo cnt) {
-    id[x][y] = cnt;
-    h[cnt]++;
-    for (lo i = 0; i < 4; ++i) {
-        lo u = x+dir[i].first, v = y+dir[i].second;
-        if (mtx[u][v] == '#' && !id[u][v])
-            dfs(u, v, cnt);
-    }
-}
-
 void solve() {
     // Get the matrix
     for (lo i = 1; i <= 10; i++) {
@@ -49,8 +39,15 @@ void solve() {
     lo cnt = 0;
     for (lo i = 1; i <= 10; ++i)
         for (lo j = 1; j <= 10; ++j)
-            if (mtx[i][j] == '#' && id[i][j] == 0)
-                dfs(i, j, ++cnt);
+            if (mtx[i][j] == '#') {
+                if (id[i-1][j] != 0)
+                    id[i][j] = id[i-1][j];
+                else if (id[i][j-1] != 0)
+                    id[i][j] = id[i][j-1];
+                else
+                    id[i][j] = ++cnt;
+                h[id[i][j]]++;
+            }
     // Commands
     lo und = 10, hit = 0, snk = 0;
     lo q;   cin >> q;
