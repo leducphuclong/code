@@ -1,58 +1,84 @@
-#include<iostream>
-using namespace std;
+#include <iostream>
+#include <vector>
 
-#define MAX 9999
-
-int n=4; // Number of the places want to visit
-
- //Next distan array will give Minimum distance through all the position
-int distan[10][10] = {                
-                    {0, 10, 15, 20},
-                    {10, 0, 35, 25},
-                    {15, 35, 0, 30},
-                    {20, 25, 30, 0}
+struct Process {
+    int arrivalTime;
+    int serviceTime;
 };
-int completed_visit = (1<<n) -1;
 
-int DP[16][4];
+void calculateCompletionTime(const std::vector<Process>& processes, std::vector<int>& completionTime) {
+    int n = processes.size();
+    int currentTime = 0;
 
+    for (int i = 0; i < n; i++) {
+        if (currentTime < processes[i].arrivalTime) {
+            currentTime = processes[i].arrivalTime;
+        }
 
-int TSP(int mark,int position){
-
-  if(mark==completed_visit){      // Initially checking whether all
-                                  // the places are visited or not
-    return distan[position][0];
-  }
-  if(DP[mark][position]!=-1){
-     return DP[mark][position];
-  }
-
-  //Here we will try to go to every other places to take the minimum
-  // answer
-  int answer = MAX;
-
-  //Visit rest of the unvisited cities and mark the . Later find the 
-  //minimum shortest path
-  for(int city=0;city<n;city++){
-
-    if((mark&(1<<city))==0){
-        int newAnswer = distan[position][city] + TSP(mark|(1<<city), city);
-        answer = min(answer, newAnswer);
+        currentTime += processes[i].serviceTime;
+        completionTime[i] = currentTime;
     }
-
-  }
-
-  return DP[mark][position] = answer;
 }
 
-int main(){
-    /* initialize the DP array */
-    for(int i=0;i<(1<<n);i++){
-        for(int j=0;j<n;j++){
-            DP[i][j] = -1;
-        }
-    }
-  cout<<"Minimum Distance Travelled by you is "<<TSP(1,0);
+void calculateTurnaroundTime(const std::vector<Process>& processes, const std::vector<int>& completionTime,
+                             std::vector<int>& turnaroundTime) {
+    int n = processes.size();
 
-return 0;
+    for (int i = 0; i < n; i++) {
+        turnaroundTime[i] = completionTime[i] - processes[i].arrivalTime;
+    }
+}
+
+void calculateWaitingTime(const std::vector<int>& turnaroundTime, const std::vector<int>& serviceTime,
+                          std::vector<int>& waitingTime) {
+    int n = turnaroundTime.size();
+
+    for (int i = 0; i < n; i++) {
+        waitingTime[i] = turnaroundTime[i] - serviceTime[i];
+    }
+}
+
+void calculateAverageTimes(const std::vector<int>& turnaroundTime, const std::vector<int>& waitingTime) {
+    int n = turnaroundTime.size();
+    double totalTurnaroundTime = 0;
+    double totalWaitingTime = 0;
+
+    for (int i = 0; i < n; i++) {
+        totalTurnaroundTime += turnaroundTime[i];
+        totalWaitingTime += waitingTime[i];
+    }
+
+    double averageTurnaroundTime = totalTurnaroundTime / n;
+    double averageWaitingTime = totalWaitingTime / n;
+
+    std::cout << "Average Turnaround Time: " << averageTurnaroundTime << std::endl;
+    std::cout << "Average Waiting Time: " << averageWaitingTime << std::endl;
+}
+
+int main() {
+    int n;
+    std::cout << "Enter the number of processes: ";
+    std::cin >> n;
+
+    std::vector<Process> processes(n);
+    std::vector<int> completionTime(n);
+    std::vector<int> turnaroundTime(n);
+    std::vector<int> waitingTime(n);
+
+    std::cout << "Enter the arrival times of the processes: ";
+    for (int i = 0; i < n; i++) {
+        std::cin >> processes[i].arrivalTime;
+    }
+
+    std::cout << "Enter the service times of the processes: ";
+    for (int i = 0; i < n; i++) {
+        std::cin >> processes[i].serviceTime;
+    }
+
+    calculateCompletionTime(processes, completionTime);
+    calculateTurnaroundTime(processes, completionTime, turnaroundTime);
+    calculateWaitingTime(turnaroundTime, processes[i].serviceTime, waitingTime);
+    calculateAverageTimes(turnaroundTime, waitingTime);
+
+    return 0;
 }

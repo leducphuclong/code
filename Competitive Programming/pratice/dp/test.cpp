@@ -1,65 +1,134 @@
+//{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
-#define pb push_back
-#define fi first
-#define se second
-#define mp make_pair
-#define pii pair<int,int>
-#define read(a) int a;cin>>a
-#define ll long long
-#define vpii vector<pair<int,int>> 
-//#define endl "\n"
-const double Pi=3.141592653589793;
-/* THE UNIVERSITY OF SCIENCEN AND TECHNOLOGY
-          THE UNIVERSITY OF DA NANG */
-vector<ll> v;
-void createFib(){
-    ll tmp1 = 1, tmp2 = 1;
-    while(tmp2 <= 1e18){
-        ll tmp = tmp2;
-        tmp2 = tmp1 + tmp2;
-        tmp1 = tmp;
-        v.pb(tmp2);
-    }
+
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child */
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+Node* newNode(int val) {
+    Node* temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
 }
-ll cnt;
-vector<ll> v2;
-ll deQuy(ll n, ll p){
-    ll res = 0;
-    for(ll i:v2){
-        if(i <= p){
-            if(n == i)  res+=1;
-            else if(n%i == 0)res += deQuy(n/i, i);
+Node* buildTree(string str) {
+    // Corner Case
+    if (str.length() == 0 || str[0] == 'N') return NULL;
+
+    // Creating vector of strings from input
+    // string after spliting by space
+    vector<string> ip;
+
+    istringstream iss(str);
+    for (string str; iss >> str;) ip.push_back(str);
+
+    // Create the root of the tree
+    Node* root = newNode(stoi(ip[0]));
+
+    // Push the root to the queue
+    queue<Node*> queue;
+    queue.push(root);
+
+    // Starting from the second element
+    int i = 1;
+    while (!queue.empty() && i < ip.size()) {
+
+        // Get and remove the front of the queue
+        Node* currNode = queue.front();
+        queue.pop();
+
+        // Get the current node's value from the string
+        string currVal = ip[i];
+
+        // If the left child is not null
+        if (currVal != "N") {
+
+            // Create the left child for the current node
+            currNode->left = newNode(stoi(currVal));
+
+            // Push it to the queue
+            queue.push(currNode->left);
         }
-    }
-    return res;
-}
-void solve(){
-    ll n;
-    cin>>n; 
-    v2.clear();
-    for(ll i:v){
-        if(n%i == 0){
-            v2.pb(i);
+
+        // For the right child
+        i++;
+        if (i >= ip.size()) break;
+        currVal = ip[i];
+
+        // If the right child is not null
+        if (currVal != "N") {
+
+            // Create the right child for the current node
+            currNode->right = newNode(stoi(currVal));
+
+            // Push it to the queue
+            queue.push(currNode->right);
         }
+        i++;
     }
-    cout<<deQuy(n, 1e9)<<endl;
+
+    return root;
 }
 
 
+// } Driver Code Ends
+/* Tree node structure  used in the program
+
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+}; */
+
+class Solution {
+  public:
+    // Function to return the diameter of a Binary Tree.
+    int max_diameter(Node* root, int& height) {
+        if (root == NULL) {
+            height = 0;
+            return 0; 
+        }
+        int left_height;
+        int left_diameter = max_diameter(root->left, left_height);
+        int right_height;
+        int right_diameter = max_diameter(root->right, right_height);
+        height = 1+max(left_height, right_height);
+        return max(left_height+right_height+1, max(left_diameter, right_diameter));
+    }
+    int diameter(Node* root) {
+        if (root == NULL)
+            return false;
+        int height = 0;
+        return max_diameter(root, height);
+    }
+};
+
+//{ Driver Code Starts.
+
+/* Driver program to test size function*/
 int main() {
     freopen("in", "r", stdin);
-    
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    createFib();   
-    int tc;
-    cin>>tc;
-    while(tc--)
-    solve();
-
-    
+    int t;
+    scanf("%d\n", &t);
+    while (t--) {
+        string s;
+        getline(cin, s);
+        Node* root = buildTree(s);
+        Solution ob;
+        cout << ob.diameter(root) << endl;
+    }
     return 0;
 }
+
+// } Driver Code Ends
