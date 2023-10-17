@@ -39,7 +39,7 @@ class khach_hang {
         int get_tieu_thu() { return this->tieu_thu; };
 
         void Nhap_thong_tin() {
-            cout << "Nhap thong tin khach hang: " << endl;
+            cout << "Nhap thong tin khach hang co id la " << this->id << endl;
             string tmp;
             cout << "Ho ten: ";
             getline(cin >> ws, tmp);  this->set_ho_ten(tmp);
@@ -60,6 +60,7 @@ class khach_hang {
             cout << "Tieu thu (m3): ";
             int tieu_thu;   cin >> tieu_thu; this->set_tieu_thu(tieu_thu);
             cin.ignore();
+            cout << endl;
         }
 
         void In_ra_thong_tin() {
@@ -71,14 +72,75 @@ class khach_hang {
             thoi_gian t = this->get_ngay_tinh_tien();
             cout << t.ngay << '/' << t.thang << '/' << t.nam << endl;
             cout << "Tieu thu: " << this->get_tieu_thu() << " m3" << endl;
+            cout << "So tien phai tra: " << tien_phai_tra() << " VND" << endl << endl;
+        }
+
+        int tien_phai_tra() {
+            int tong_tien = 0, da_tieu_thu = this->tieu_thu;
+            if (da_tieu_thu <= 100) {
+                tong_tien += da_tieu_thu * 2000;
+            } else if (da_tieu_thu <= 200) {
+                tong_tien += 100*2000 + (da_tieu_thu-100)*3000;
+            } else {
+                tong_tien = 100*2000 + 100*3000 + (da_tieu_thu-200)*5000;
+            }
+            return tong_tien;
         }
 };
 
 int khach_hang::so_luong_khach_hang = 0;
 
+class quan_ly {
+    khach_hang khach[100];
+    int so_luong;
+    public:
+        quan_ly() : so_luong(0) {}
+        ~quan_ly() {}
+
+        void them_khach_hang(const khach_hang& khach_moi) {
+            if (so_luong == 100) {
+                cout << "Da chua so luong khach toi da, khong the chua them !! " << endl;
+            } else {
+                khach[so_luong++] = khach_moi;
+            }
+        }
+
+        void in_ra_danh_sach_khach_hang() {
+            cout << "Sau day la danh sach cac khach hang: " << endl << endl;
+            for (int i = 0; i < so_luong; ++i)
+                this->khach[i].In_ra_thong_tin();
+        }
+
+        int so_tien_phai_tra_lon_nhat() {
+            int MAX = 0;
+            for (int i = 0; i < so_luong; ++i)
+                if (khach[i].tien_phai_tra() > MAX)
+                    MAX = khach[i].tien_phai_tra();
+            return MAX;
+        }
+
+        void in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat() {
+            cout << "Sau day la danh sach khach hang co so tien phai tra la lon nhat: " << endl << endl;
+            int M = so_tien_phai_tra_lon_nhat();
+            for (int i = 0; i < so_luong; ++i)
+                if (khach[i].tien_phai_tra() == M)
+                    khach[i].In_ra_thong_tin();
+        }
+};
+
 int main(int argc, char **argv) {
-    khach_hang c1;
-    c1.Nhap_thong_tin();
-    c1.In_ra_thong_tin();   
+    khach_hang c1("Long", "Hue", "0914167544", {17, 10, 2023}, 189);
+    khach_hang c2("Hang", "Hue", "0000000000", {10, 11, 2024}, 201);
+    khach_hang c3("Hoang", "Hue", "111111111", {10, 11, 2024}, 201);
+    // c1.Nhap_thong_tin();
+    // c2.Nhap_thong_tin();
+    quan_ly q;
+    q.them_khach_hang(c1);
+    q.them_khach_hang(c2);
+    q.them_khach_hang(c3);
+
+    q.in_ra_danh_sach_khach_hang();
+    q.in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat();
+
     return 0;
 }
