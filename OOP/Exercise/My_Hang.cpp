@@ -96,10 +96,10 @@ int khach_hang::tien_phai_tra() {
 }
 
 class quan_ly {
-    public:
+    private:
         int so_luong;
         khach_hang khach[100];
-
+    public:
         quan_ly() : so_luong(0) {}
         ~quan_ly() {}
 
@@ -189,13 +189,8 @@ int main(int argc, char **argv) {
 
     q.sap_xep_theo_ngay_tinh_tien();
 
-    for (int i = 0; i < q.so_luong; ++i) {
-        auto tmp = q.khach[i].get_ngay_tinh_tien();
-        cout << tmp.ngay << '/' << tmp.thang << '/' << tmp.nam << endl;
-    }
-
-    // q.in_ra_danh_sach_khach_hang();
-    // q.in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat();
+    q.in_ra_danh_sach_khach_hang();
+    q.in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat();
 
     return 0;
 }
