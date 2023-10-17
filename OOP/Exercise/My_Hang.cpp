@@ -175,10 +175,10 @@ void quan_ly::in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat() {
 }
 
 int main(int argc, char **argv) {
-    khach_hang c1("Long", "Hue", "0914167544", {17, 10, 2022}, 189);
-    khach_hang c2("Hang", "Hue", "0000000000", {10, 11, 2021}, 201);
-    khach_hang c3("Hoang", "Hue", "111111111", {10, 10, 2021}, 201);
-    khach_hang c4("Top", "Hue", "11111111111", {8, 11, 2021}, 201);
+    khach_hang c1("1", "Hue", "0914167544", {17, 10, 2022}, 189);
+    khach_hang c2("2", "Hue", "0000000000", {10, 11, 2021}, 201);
+    khach_hang c3("3", "Hue", "111111111", {10, 10, 2021}, 201);
+    khach_hang c4("4", "Hue", "11111111111", {8, 11, 2021}, 201);
     // c1.Nhap_thong_tin();
     // c2.Nhap_thong_tin();
     quan_ly q;
