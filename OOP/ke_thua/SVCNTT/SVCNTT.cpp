@@ -24,6 +24,11 @@ ostream& operator<<(ostream& o, const SVCNTT& s) {
 }
 
 const SVCNTT& SVCNTT::operator=(const SVCNTT& s) {
-    *this = s;
+    SV::operator=(s);
+    this->LT = s.LT;
     return *this;
+}
+
+bool SVCNTT::operator==(const SVCNTT& s) {
+    return s.MSSV == this->MSSV && s.gender == this->gender;
 }

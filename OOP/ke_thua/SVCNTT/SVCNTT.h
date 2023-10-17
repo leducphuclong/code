@@ -10,4 +10,5 @@ class SVCNTT: public SV {
     friend ostream& operator<<(ostream&, const SVCNTT&);
     void Show();
     const SVCNTT& operator=(const SVCNTT&);
+    bool operator==(const SVCNTT&);
 };

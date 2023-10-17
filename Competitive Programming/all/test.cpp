@@ -1,54 +1,42 @@
-// Copyright (c) 2023, Le Duc Phuc Long
+#include <iostream>
+using namespace std;
+class Exam{
+    int *ptr;
+    int size;
+    public:
+        Exam(int);
+        ~Exam();
+        int& operator[](const int&);
+        friend const ostream& operator<<(ostream&, const Exam&);
+};
 
-/*If you don't think twice, you have to code twice.*/
-
-// Include
-#include <bits/stdc++.h>  // NOLINT
-// #include <conio.h>
-
-// Namespace
-using namespace std;  // NOLINT
-
-// Define
-#define nln '\n'
-
-// Typedef and Struct
-typedef int64_t lo;
-
-// Constant
-
-// Declare global variables.
-// End of global variable declaration.
-
-void precompute() {
+int& Exam::operator[](const int& index){
+    
+    return  *(this->ptr +index);
 }
 
-void solve() {
-    lo n;
-    cin >> n;
-    vector<lo> arr(n);
-    for (auto &v : arr)
-        cin >> v;
-
-    map<lo, bool> mark;
-    lo cnt = 0;
-    for (auto v : arr) {
-        cnt += mark[v+1];
-        mark[v] = 1;
-    }
-
-    cout << cnt << nln;
+Exam::Exam(int size): size(size){
+    this->ptr = new int[size];
+   
+}
+Exam::~Exam(){
+    delete[] this->ptr;
 }
 
-int main(int argc, char* argv[]) {
-    cin.tie(0)->sync_with_stdio(0);
-    cout.tie(0)->sync_with_stdio(0);
-    int T = 1;
-    cin >> T;
-    precompute();
-    while (T--) {
-        solve();
-    }
-    cerr << "It's ok Long, Good for now !!" << nln;
+const ostream& operator<<(ostream& o, const Exam& obj){
+    for(int i=0; i<obj.size;++i)
+        o << obj.ptr[i] << " ";
+    return o;
+}
+
+int main(){
+    Exam obj(5);
+    obj[0] = 25;
+    obj[1] = 20;
+    obj[2] = 15;
+    obj[3] = 10;
+    obj[4] = 5;
+    cout << obj;
+    cout << "OK" << endl;
     return 0;
 }

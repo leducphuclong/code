@@ -13,4 +13,5 @@ class SV {
         friend ostream& operator<<(ostream&, const SV&);
         virtual void show();
         const SV& operator=(const SV&);
+        virtual bool operator==(const SV&);
 };

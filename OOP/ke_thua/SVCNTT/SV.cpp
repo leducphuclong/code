@@ -30,3 +30,7 @@ const SV& SV::operator=(const SV& s) {
     // *this = s;
     return *this;
 }
+
+bool SV::operator==(const SV& s) {
+    return this->MSSV == s.MSSV;
+}

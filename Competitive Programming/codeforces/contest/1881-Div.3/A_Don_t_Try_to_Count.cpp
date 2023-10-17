@@ -1,0 +1,61 @@
+// Copyright (c) 2023, Le Duc Phuc Long
+
+/*If you don't think twice, you have to code twice.*/
+
+// Include
+#include <bits/stdc++.h>  // NOLINT
+// #include <conio.h>
+
+// Namespace
+using namespace std;  // NOLINT
+
+// Define
+#define nln '\n'
+
+// Typedef and Struct
+typedef int64_t lo;
+
+// Constant
+
+// Declare global variables.
+vector<pair<lo, lo>> dir4 = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+// End of global variable declaration.
+
+void precompute() {
+}
+
+void solve() {
+    int n, m;       cin >> n >> m;
+    string x, s;    cin >> x >> s;
+    lo cnt = 0;
+    bool ans = false;
+    while (x.size() <= 51) {
+        if (x.find(s) != string::npos) {
+            ans = true;
+            break;
+        }
+        x += x;
+        cnt++;
+    }
+    // cout << "x: " << x << nln;
+    // cout << "s: " << x << nln;
+    if (ans)
+        cout << cnt << nln;
+    else
+        cout << -1 << nln;
+}
+
+int main(int argc, char* argv[]) {
+    //freopen("in.txt", "r", stdin);
+    //freopen("out.txt", "w", stdout);
+    cin.tie(0)->sync_with_stdio(0);
+    cout.tie(0)->sync_with_stdio(0);
+    int T = 1;
+    cin >> T;
+    precompute();
+    while (T--) {
+        solve();
+    }
+    cerr << "It's ok Long, Good for now !!" << nln;
+    return 0;
+}
