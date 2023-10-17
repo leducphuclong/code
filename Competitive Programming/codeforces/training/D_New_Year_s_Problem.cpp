@@ -32,48 +32,56 @@ void solve() {
         for (lo j = 0; j < n; ++j)
             cin >> arr[i][j];
     /* Idea
-    1. We first sort every good of shops decreasing
-        - Attached shop's idex and persin's index
-        - Put them into a vector
-    2. Browse the vector:
-        - If the number of visited shop is full of n-1, and came
-        to new shop, then conintue
-            - Else:
-            - If the person's index is not received gift, take the good and
-            mark that idexed already done
-                - Else, continue browse
+    - We see, if we can archive the x joy, then we can archive x-1 joy,
+    and also if we can't archive x joy, then we cann't archive x+1 joy.
+
+    - Binary search from min joy to max joy
+
+    - The check function is that everyone is bought at least one gift.
     */
 
-    vector<pair<lo, pair<lo, lo>>> in4;
+    lo mn = LLONG_MAX, mx = LLONG_MIN; // this for BS
+    vector<vector<lo>> joy(n, vector<lo> (m, 0)); // Remember we have 'm' shops and 'n' friends
     for (lo i = 0; i < m; ++i)
-        for (lo j = 0; j < n; ++j)
-            in4.push_back({arr[i][j], {i, j}});
-    
-    sort(in4.rbegin(), in4.rend());
-    lo cnt_visited = 0;
-    bool received[n], visited[m];
-    memset(received, false, sizeof(received));
-    memset(visited, false, sizeof(visited));
-    vector<lo> bought;
-    for (auto e : in4) {
-        lo val = e.first, shop_idx = e.second.first, 
-        person_idx = e.second.second;
+        for (lo j = 0; j < n; ++j) {
+            cin >> joy[i][j];
+            mn = min(mn, joy[i][j]);
+            mx = max(mx, joy[i][j]);
+        }   
 
-        if (!visited[shop_idx] && cnt_visited == n-1)
-            continue;
+    auto check = [&] (lo x) {
+        // visit all shops and buy everything we can for some friends
+        vector<bool> bought(n, false);
+        bool same_shop = false;
+        for (lo i = 0; i < m; ++i) {
+            lo cnt = 0;     // this is a number of friends
+            // bought gift in this shop
+            for (lo j = 0; j < n; ++j)
+                if (joy[i][j] >=  x)  // buy it 
+                    bought[j] = true, cnt++;
+            if (cnt > 1)
+                same_shop = true;
+        }
+
+        if (!same_shop && n > 1)
+            return false;
         
-        if (received[person_idx])
-            continue;
-        received[person_idx] = true;
-        bought.push_back(val);
-
-        if (!visited[shop_idx]) {
-            visited[shop_idx] = true;
-            cnt_visited++;
+        bool res = true;
+        for (auto v : bought)
+            res = res && v;
+        return res;
+    };
+    
+    while (mn <= mx) {
+        lo gss = (mn+mx) >> 1;
+        if (check(gss)) {
+            mn = gss+1;
+        } else {
+            mx = gss-1;
         }
     }
+    cout << mn-1 << endl;
 
-    cout << bought.back() << nln;
 }
 
 int main(int argc, char* argv[]) {
