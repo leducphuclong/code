@@ -107,21 +107,9 @@ class quan_ly {
 
         void in_ra_danh_sach_khach_hang();
 
-        int so_tien_phai_tra_lon_nhat() {
-            int MAX = 0;
-            for (int i = 0; i < so_luong; ++i)
-                if (khach[i].tien_phai_tra() > MAX)
-                    MAX = khach[i].tien_phai_tra();
-            return MAX;
-        }
+        int so_tien_phai_tra_lon_nhat();
 
-        void in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat() {
-            cout << "Sau day la danh sach khach hang co so tien phai tra la lon nhat: " << endl << endl;
-            int M = so_tien_phai_tra_lon_nhat();
-            for (int i = 0; i < so_luong; ++i)
-                if (khach[i].tien_phai_tra() == M)
-                    khach[i].In_ra_thong_tin();
-        }
+        void in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat();
 
         void swap(int i, int j);
 
@@ -168,6 +156,22 @@ void quan_ly::sap_xep_theo_ngay_tinh_tien() {
         for (int j = i+1; j < so_luong; ++j)
             if (so_sanh(i, j) == false)
                 swap(i, j);
+}
+
+int quan_ly::so_tien_phai_tra_lon_nhat() {
+    int MAX = 0;
+    for (int i = 0; i < so_luong; ++i)
+        if (khach[i].tien_phai_tra() > MAX)
+            MAX = khach[i].tien_phai_tra();
+    return MAX;
+}
+
+void quan_ly::in_ra_cac_khach_hang_co_tien_phai_tra_la_cao_nhat() {
+    cout << "Sau day la danh sach khach hang co so tien phai tra la lon nhat: " << endl << endl;
+    int M = so_tien_phai_tra_lon_nhat();
+    for (int i = 0; i < so_luong; ++i)
+        if (khach[i].tien_phai_tra() == M)
+            khach[i].In_ra_thong_tin();
 }
 
 int main(int argc, char **argv) {
