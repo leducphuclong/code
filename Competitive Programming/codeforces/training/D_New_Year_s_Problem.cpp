@@ -27,10 +27,6 @@ void precompute() {
 void solve() {
     // Input
     lo m, n;        cin >> m >> n;
-    int arr[m][n];
-    for (lo i = 0; i < m; ++i)
-        for (lo j = 0; j < n; ++j)
-            cin >> arr[i][j];
     /* Idea
     - We see, if we can archive the x joy, then we can archive x-1 joy,
     and also if we can't archive x joy, then we cann't archive x+1 joy.
@@ -41,7 +37,7 @@ void solve() {
     */
 
     lo mn = LLONG_MAX, mx = LLONG_MIN; // this for BS
-    vector<vector<lo>> joy(n, vector<lo> (m, 0)); // Remember we have 'm' shops and 'n' friends
+    vector<vector<lo>> joy(m, vector<lo> (n, 0)); // Remember we have 'm' shops and 'n' friends
     for (lo i = 0; i < m; ++i)
         for (lo j = 0; j < n; ++j) {
             cin >> joy[i][j];
@@ -81,7 +77,6 @@ void solve() {
         }
     }
     cout << mn-1 << endl;
-
 }
 
 int main(int argc, char* argv[]) {
