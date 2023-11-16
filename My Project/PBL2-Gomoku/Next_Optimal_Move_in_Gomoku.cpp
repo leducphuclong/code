@@ -26,7 +26,6 @@ int evaluate(char board[size_board][size_board]) {
 }
 
 int main() {
-    fd
-
+    cout << "Hi there! I'm testing power of pull request!" << endl;
     return 0;
 }
