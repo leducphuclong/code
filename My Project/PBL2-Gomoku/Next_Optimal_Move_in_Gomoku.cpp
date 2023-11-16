@@ -22,9 +22,11 @@ bool isMoveLeft(char board[size_board][size_board]) {
 }
 
 int evaluate(char board[size_board][size_board]) {
-    for (int row = 0; row < size_board; row < )
+   
 }
 
 int main() {
+    fd
+
     return 0;
 }
