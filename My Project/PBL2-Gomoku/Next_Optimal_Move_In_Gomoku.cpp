@@ -91,13 +91,14 @@ int convert_to_score(char c) {
 }
 
 // minimax algorithm (backtracking all situations) 
-int minimax(char board[size_board][size_board], int depth, bool isMaximizing) {
+int minimax(char board[size_board][size_board], int depth, bool isMaximizing
+            , int alpha, int beta) {
     int score = convert_to_score(evaluate_board(board));
     // Leaves Node (Game Over)
     if (score == INT_MAX)
-        return score;
+        return score - depth;
     if (score == INT_MIN)
-        return score;
+        return score + depth;
     if (!isMoveLeft(board))
         return 0;
     // Take turn
@@ -109,12 +110,16 @@ int minimax(char board[size_board][size_board], int depth, bool isMaximizing) {
         for (int j = 0; j < size_board; j++) {
             if (board[i][j] == empty_cell) {
                 board[i][j] = isMaximizing? player : opponent;
-                int score = minimax(board, depth+1, !isMaximizing);
+                int score = minimax(board, depth+1, !isMaximizing, alpha, beta);
                 if (isMaximizing) 
-                    best_score = max(best_score, score);
+                    best_score = max(best_score, score),
+                    alpha = max(alpha, score);
                 else
-                    best_score = min(best_score, score); 
+                    best_score = min(best_score, score),
+                    beta = min(beta, score);
                 board[i][j] = empty_cell;
+                if (alpha > beta)
+                    return best_score;
             }
         }
     }
@@ -129,7 +134,7 @@ Move best_move_of_player(char board[size_board][size_board]) {
         for (int j = 0; j < size_board; j++) {
             if (board[i][j] == empty_cell) {
                 board[i][j] = player;
-                int score = minimax(board, 0, false);
+                int score = minimax(board, 0, false, INT_MIN, INT_MAX);
                 if (score > best_score || (score == best_score && first == true)) {
                     if (score == best_score && first == true)
                         first = false;
@@ -143,8 +148,6 @@ Move best_move_of_player(char board[size_board][size_board]) {
     }
     return best_move;
 }
-
-
 
 int main(int argc, char* argv[]) {
     char board[size_board][size_board] = {
