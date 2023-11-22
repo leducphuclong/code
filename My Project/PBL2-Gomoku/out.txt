@@ -1,2 +1,2 @@
-0
 Best Move: 1 1
+Number of steps: 8910

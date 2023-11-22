@@ -1,77 +1,165 @@
-#include <iostream>
-#include <vector>
-#include <random>
-#include <unordered_map>
+#include <iostream> 
+#include <climits>
 
-// Size of the game board
-const int BOARD_SIZE = 15;
+using namespace std;
 
-// Class representing the Gomoku game board
-class GomokuBoard {
-public:
-    GomokuBoard() {
-        // Initialize the game board and hash table
-        board.resize(BOARD_SIZE, std::vector<int>(BOARD_SIZE, 0));
-        hashTable.resize(BOARD_SIZE, std::vector<unsigned long long>(BOARD_SIZE, 0));
-        currentHash = 0;
-        initializeHashTable();
-    }
+const int size_board = 3, winning_score = 3;
 
-    // Function to make a move on the game board
-    void makeMove(int row, int col, int player) {
-        currentHash ^= hashTable[row][col]; // XOR the previous hash value
-        board[row][col] = player; // Update the game board
-        currentHash ^= hashTable[row][col]; // XOR the new hash value
-    }
-
-    // Function to print the current game board
-    void printBoard() const {
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                std::cout << board[i][j] << " ";
-            }
-            std::cout << std::endl;
-        }
-    }
-
-    // Function to get the current hash value of the game board
-    unsigned long long getHash() const {
-        return currentHash;
-    }
-
-private:
-    std::vector<std::vector<int>> board; // Game board
-    std::vector<std::vector<unsigned long long>> hashTable; // Hash table for board positions
-    unsigned long long currentHash; // Current hash value of the game board
-
-    // Function to initialize the hash table with random values
-    void initializeHashTable() {
-        std::random_device rd;
-        std::mt19937_64 gen(rd());
-        std::uniform_int_distribution<unsigned long long> dis;
-
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                hashTable[i][j] = dis(gen);
-            }
-        }
-    }
+struct Move {
+    int row, col;
 };
 
-int main() {
-    GomokuBoard board;
+char player = 'x', opponent = 'o', empty_cell = '_';
 
-    // Make some moves on the game board
-    board.makeMove(7, 7, 1);
-    board.makeMove(8, 6, 2);
-    board.makeMove(6, 8, 1);
+bool isMoveLeft(char board[size_board][size_board]) {
+    for (int i = 0; i < size_board; i++) {
+        for (int j = 0; j < size_board; j++) {
+            if (board[i][j] == empty_cell) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
-    // Print the current game board
-    board.printBoard();
+char evaluate_board(char board[size_board][size_board]) {
+    // Row
+    for (int i = 0; i < size_board; i++) {
+        int length = (board[i][0] == empty_cell) ? 0 : 1;
+        for (int j = 1; j < size_board; j++) {
+            // Check if the cell is empty, we continue to the next cell
+            if (board[i][j] == empty_cell) 
+                continue;
+            // If the cell is not empty, 
+            // we check if it is the same as the previous cell,
+            // they will form a line.
+            if (board[i][j] == board[i][j-1]) {
+                if (++length == winning_score)
+                    return board[i][j];
+            } else {
+                length = (board[i][j] == empty_cell) ? 0 : 1;
+            }
+        }
+    }
+    // Column 
+    for (int j = 0; j < size_board; ++j) {
+        int length = (board[0][j] == empty_cell) ? 0 : 1;
+        for (int i = 1; i < size_board; ++i) {
+            // Check if it is a empty cell, we continue to the next cell
+            if (board[i][j] == empty_cell)
+                continue;
+            // If the cell is not empty, 
+            // we check if it is the same as the previous cell,
+            // they will form a line.
+            if (board[i][j] == board[i-1][j]) {
+                if (++length == winning_score)
+                    return board[i][j];
+            } else {
+                length = (board[i][j] == empty_cell) ? 0 : 1;
+            }
+        }
+    }
+    // Main Diagonal
+    int length = (board[0][0] == empty_cell) ? 0 : 1;
+    for (int i = 1; i < size_board; ++i)
+        if (board[i][i] != empty_cell && board[i][i] == board[i-1][i-1]) {
+            if (++length == winning_score)
+                return board[i][i];
+        } else {
+            length = (board[i][i] == empty_cell) ? 0 : 1;
+        }
+    // Secondary Diagonal
+    length = 1;
+    for (int i = 1; i < size_board; ++i)
+        if (board[i][size_board-1-i] != empty_cell && board[i][size_board-1-i] == board[i-1][size_board-1-i+1]) {
+            if (++length == winning_score)
+                return board[i][size_board-1-i];
+        } else {
+            length = (board[i][size_board-1-i] == empty_cell) ? 0 : 1;
+        }
 
-    // Get the current hash value of the game board
-    unsigned long long hashValue = board.getHash();
-    std::cout << "Hash value: " << hashValue << std::endl;
+    return empty_cell;
+}
 
+int convert_to_score(char c) {
+    if (c == player)
+        return INT_MAX;
+    else if (c == opponent)
+        return INT_MIN;
+    else
+        return 0;
+}
+
+unsigned long long cnt = 0;
+// minimax algorithm (backtracking all situations) 
+int minimax(char board[size_board][size_board], int depth, bool isMaximizing
+            , int alpha, int beta) {
+    int score = convert_to_score(evaluate_board(board));
+    // Leaves Node (Game Over)
+    if (score == INT_MAX)
+        return score - depth;
+    if (score == INT_MIN)
+        return score + depth;
+    if (!isMoveLeft(board))
+        return 0;
+    // Take turn
+    // We will maximizing player's score and minimizing oppenent's score
+    // That mean, assume we play the best move for ourself and my oppenent play the
+    // worst move for ourself
+    int best_score = (isMaximizing == true) ? INT_MIN : INT_MAX;
+    for (int i = 0; i < size_board; i++) {
+        for (int j = 0; j < size_board; j++) {
+            cnt++;
+            if (board[i][j] == empty_cell) {
+                board[i][j] = isMaximizing? player : opponent;
+                int score = minimax(board, depth+1, !isMaximizing, alpha, beta);
+                if (isMaximizing) 
+                    best_score = max(best_score, score),
+                    alpha = max(alpha, score);
+                else
+                    best_score = min(best_score, score),
+                    beta = min(beta, score);
+                board[i][j] = empty_cell;
+                if (alpha > beta)
+                    return best_score;
+            }
+        }
+    }
+    return best_score;
+}
+
+Move best_move_of_player(char board[size_board][size_board]) {
+    int best_score = INT_MIN;
+    bool first = true;
+    Move best_move;
+    for (int i = 0; i < size_board; i++) {
+        for (int j = 0; j < size_board; j++) {
+            if (board[i][j] == empty_cell) {
+                board[i][j] = player;
+                int score = minimax(board, 0, false, INT_MIN, INT_MAX);
+                if (score > best_score || (score == best_score && first == true)) {
+                    if (score == best_score && first == true)
+                        first = false;
+                    best_move.row = i;
+                    best_move.col = j;
+                    best_score = score;
+                }
+                board[i][j] = empty_cell;
+            }
+        }
+    }
+    return best_move;
+}
+
+int main(int argc, char* argv[]) {
+    char board[size_board][size_board] = {
+                {'o','_','_'},
+                {'_','_','_'},
+                {'_','_','_'}
+    };  
+    cout << convert_to_score(evaluate_board(board)) << endl;
+    Move best_move = best_move_of_player(board);
+    cout << "Best Move: " << best_move.row << " " << best_move.col << endl;
+    cout << "Number of steps: " << cnt << endl;
     return 0;
 }

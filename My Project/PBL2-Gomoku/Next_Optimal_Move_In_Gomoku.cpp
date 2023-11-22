@@ -1,5 +1,7 @@
 #include <iostream> 
 #include <climits>
+#include <random>
+#include <unordered_map>
 
 using namespace std;
 
@@ -11,14 +13,38 @@ struct Move {
 
 char player = 'x', opponent = 'o', empty_cell = '_';
 
+unsigned long long hashTable[size_board][size_board][2];
+unordered_map<unsigned long long, int> transpositionTable;  
+
+unsigned long long indexOf(char mark) {
+    return (mark == player ? 0 : 1);
+}
+
+void initializeHashTable() {
+    random_device rd;
+    mt19937_64 gen(rd());
+    uniform_int_distribution<unsigned long long> dis;
+
+    for (int i = 0; i < size_board; i++)
+        for (int j = 0; j < size_board; j++)
+            for (int k = 0; k < 2; ++k)
+            hashTable[i][j][k] = dis(gen);   
+}
+
+unsigned long long computeHash(char board[size_board][size_board]) {
+    unsigned long long currentHashValue = 0;
+    for (int i = 0; i < size_board; ++i)
+        for (int j = 0; j < size_board; ++j)
+            if (board[i][j] != empty_cell)
+                currentHashValue ^= hashTable[i][j][indexOf(board[i][j])];
+    return currentHashValue;
+}
+
 bool isMoveLeft(char board[size_board][size_board]) {
-    for (int i = 0; i < size_board; i++) {
-        for (int j = 0; j < size_board; j++) {
-            if (board[i][j] == empty_cell) {
+    for (int i = 0; i < size_board; i++)
+        for (int j = 0; j < size_board; j++)
+            if (board[i][j] == empty_cell)
                 return true;
-            }
-        }
-    }
     return false;
 }
 
@@ -90,9 +116,17 @@ int convert_to_score(char c) {
         return 0;
 }
 
+unsigned long long cnt = 0;
 // minimax algorithm (backtracking all situations) 
 int minimax(char board[size_board][size_board], int depth, bool isMaximizing
             , int alpha, int beta) {
+    // Check Transposition Hash Table
+    unsigned long long hashValue = computeHash(board);
+    auto itr = transpositionTable.find(hashValue);
+    if (itr != transpositionTable.end())
+        return itr->second;
+    // If Hash Table Missing
+    // Perform Minimax algorithm
     int score = convert_to_score(evaluate_board(board));
     // Leaves Node (Game Over)
     if (score == INT_MAX)
@@ -108,6 +142,7 @@ int minimax(char board[size_board][size_board], int depth, bool isMaximizing
     int best_score = (isMaximizing == true) ? INT_MIN : INT_MAX;
     for (int i = 0; i < size_board; i++) {
         for (int j = 0; j < size_board; j++) {
+            cnt++;
             if (board[i][j] == empty_cell) {
                 board[i][j] = isMaximizing? player : opponent;
                 int score = minimax(board, depth+1, !isMaximizing, alpha, beta);
@@ -119,11 +154,11 @@ int minimax(char board[size_board][size_board], int depth, bool isMaximizing
                     beta = min(beta, score);
                 board[i][j] = empty_cell;
                 if (alpha > beta)
-                    return best_score;
+                    return transpositionTable[hashValue] = best_score;
             }
         }
     }
-    return best_score;
+    return transpositionTable[hashValue] = best_score;
 }
 
 Move best_move_of_player(char board[size_board][size_board]) {
@@ -155,8 +190,10 @@ int main(int argc, char* argv[]) {
                 {'_','_','_'},
                 {'_','_','_'}
     };  
-    cout << convert_to_score(evaluate_board(board)) << endl;
+    initializeHashTable();
     Move best_move = best_move_of_player(board);
     cout << "Best Move: " << best_move.row << " " << best_move.col << endl;
+    cout << "Number of steps: " << cnt << endl;
+    
     return 0;
 }
