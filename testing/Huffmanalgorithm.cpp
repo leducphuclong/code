@@ -1,5 +1,8 @@
 #include <bits/stdc++.h> 
+ 
 using namespace std; 
+ 
+map<char, string> codebook;
  
 // A Huffman tree node 
 struct MinHeapNode { 
@@ -43,7 +46,7 @@ void printCodes(struct MinHeapNode* root, string str)
         return; 
  
     if (root->data != '$') 
-        cout << root->data << ": " << str << "\n"; 
+        codebook[root->data] = str;
  
     printCodes(root->left, str + "0"); 
     printCodes(root->right, str + "1"); 
@@ -51,7 +54,7 @@ void printCodes(struct MinHeapNode* root, string str)
  
 // The main function that builds a Huffman Tree and 
 // print codes by traversing the built Huffman Tree 
-void HuffmanCodes(char data[], int freq[], int size) 
+MinHeapNode* HuffmanCodes(char data[], int freq[], int size) 
 { 
     struct MinHeapNode *left, *right, *top; 
  
@@ -93,18 +96,62 @@ void HuffmanCodes(char data[], int freq[], int size)
     // Print Huffman codes using 
     // the Huffman tree built above 
     printCodes(minHeap.top(), ""); 
+    return minHeap.top();
 } 
+ 
+string decodeHuffman(MinHeapNode* root, const string& encodedData) {
+    string decodedString;
+    MinHeapNode* current = root;
+ 
+    for (char bit : encodedData) {
+        if (bit == '0') {
+            current = current->left;
+        } else if (bit == '1') {
+            current = current->right;
+        }
+ 
+        if (current->left == nullptr && current->right == nullptr) {
+            decodedString += current->data;
+            current = root;  // Reset to the root for the next character
+        }
+    }
+ 
+    return decodedString;
+}
  
 // Driver Code 
 int main() 
 { 
-    cout << "hi" << endl;
-    char arr[] = { 'a', 'b', 'c', 'd', 'e', 'f' }; 
-    int freq[] = { 5, 9, 12, 13, 16, 45 }; 
+    freopen("original_text.txt", "r", stdin);
+    string test = "Ly thuyet thong tin";
+    getline(cin, test);
+    
+    map<char, int> cnt;
+    for (auto c : test)
+        cnt[c]++;
+    int n = cnt.size();
+    char arr[n];
+    int freq[n];
+    int i = 0;
+    for (auto p : cnt) {
+        arr[i] = p.first;
+        freq[i] = p.second;
+        i++;
+    }
+ 
+ 
  
     int size = sizeof(arr) / sizeof(arr[0]); 
  
-    HuffmanCodes(arr, freq, size); 
+    MinHeapNode* root = HuffmanCodes(arr, freq, size); 
+    string encoded = "";
+    for (auto c : test)
+        encoded += codebook[c];  
+    cout << "Encoded: " << encoded << endl;
+    string decoded = decodeHuffman(root, encoded);
+    cout << "Decoded: " << decoded << endl;
+ 
+ 
  
     return 0; 
 } 

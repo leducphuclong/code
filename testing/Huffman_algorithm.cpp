@@ -98,7 +98,7 @@ void HuffmanCodes(char data[], int freq[], int size)
 // Driver Code 
 int main() 
 { 
-    cout << "hi" << endl;
+ 
     char arr[] = { 'a', 'b', 'c', 'd', 'e', 'f' }; 
     int freq[] = { 5, 9, 12, 13, 16, 45 }; 
  

@@ -1,2 +1,7 @@
-Best Move: 1 1
-Number of steps: 8910
+hi
+f: 0
+c: 100
+d: 101
+a: 1100
+b: 1101
+e: 111
