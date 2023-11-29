@@ -28,12 +28,16 @@ typedef struct polynomial {
 // End of global variable declaration.
 
 polynomial_ptr initialize(polynomial_ptr p) {
+
     p = (polynomial_ptr)malloc(sizeof(struct polynomial));
+
     p->header = (operand_ptr)malloc(sizeof(struct operand));
     p->tail = (operand_ptr)malloc(sizeof(struct operand));
+
     p->header->prev = p->tail->next = NULL;
     p->header->next = p->tail;
     p->tail->prev = p->header;
+
     return p;
 }
 
@@ -64,24 +68,47 @@ void insert(polynomial_ptr p, element_type coefficient, element_type exponent) {
     pos->prev = new_operand;
 }
 
+void discard(polynomial_ptr p, element_type coefficient, element_type exponent) {
+    operand_ptr pos = find_position(p, exponent);
+    if (pos->exponent != exponent) {
+        // If there is no exponent like that
+        return;
+    }
+
+    // Minus coefficient
+    pos->coefficient -= coefficient;
+    // If coefficient is equal to zero, we delete it
+    if (pos->coefficient == 0) {
+        pos->prev->next = pos->next;
+        pos->next->prev = pos->prev;
+        free(pos);
+    }
+}
+
 void print(polynomial_ptr p) {
     operand_ptr itr = p->header->next;
     while (itr->next != p->tail) {
-        printf("%i*x^%i + ", itr->coefficient, itr->exponent);
+        if (itr->coefficient == 1)
+            printf("x^%i + ", itr->exponent);
+        else
+            printf("%i*x^%i + ", itr->coefficient, itr->exponent);
         itr = itr->next;
     }
-    printf("%i*x^%i\n", itr->coefficient, itr->exponent);
+    if (itr->coefficient == 1)
+        printf("x^%i", itr->exponent);
+    else
+        printf("%i*x^%i", itr->coefficient, itr->exponent);
 }
-
 
 int main(int argc, char* argv[]) {
     polynomial_ptr p = initialize(p);
-    insert(p, 1, 2);
-    insert(p, 1, 2);
-    insert(p, 2, 4);
-    insert(p, 3, 3);
+    insert(p, 1, 2); // add 1*x^2
+    // insert(p, 1, 2); // add 1*x^2
+    insert(p, 2, 4); // add 2*x^4
+    insert(p, 3, 3); // add 3*x^3
+    discard(p, 4, 3); // minus 3*x^3
 
     print(p);
-    fprintf(stderr, "%s\n", "It's ok Long, Good for now !!");
+    fprintf(stderr, "\n%s\n", "It's ok Long, Good for now !!");
     return 0;
 }
