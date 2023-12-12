@@ -1,40 +1,29 @@
-// Copyright (c) 2023, Le Duc Phuc Long
+#include<iostream>
+#include<algorithm>
+using namespace std;
 
-/*If you don't think twice, you have to code twice.*/
+#define ll long long
 
-// Include
-#include <bits/stdc++.h>  // NOLINT
-// #include <conio.h>
+ll a[100005], n, x, d[100005], res = 0, tmp;
 
-// Define
-#define nln '\n'
-
-// Typedef
-typedef int64_t lo;
-
-// Constant
-
-// Namespace
-using namespace std;  // NOLINT
-
-// Declare global variables.
-// End of global variable declaration.
-
-void precompute() {
-}
-
-void solve() {
-}
-
-int main(int argc, char* argv[]) {
-    cin.tie(0)->sync_with_stdio(0);
-    cout.tie(0)->sync_with_stdio(0);
-    int T = 1;
-    cin >> T;
-    precompute();
-    while (T--) {
-        solve();
-    }
-    cerr << "It's ok Long, Good for now !!" << nln;
-    return 0;
+int main() {
+	cin >> n >> x;
+	for (int i = 1; i <= n; ++i) cin >> a[i];
+	
+	sort(a + 1, a + 1 + n);
+	
+	for (int i = 1; i <= n; ++i) d[i] = a[i] == a[i - 1] ? d[i - 1] + 1 : 1;
+	
+	tmp = n;
+	for (int i = 1; i <= n; ++i) {
+		while(a[i] + a[tmp] > x) --tmp;
+		if (a[tmp] == a[i]) {
+			res += d[tmp] * (d[tmp] - 1) / 2;
+			break;
+		}
+		if (a[tmp] < a[i]) break;
+		if (a[i] + a[tmp] == x) res += d[tmp];
+	}
+	
+	cout << res;
 }
