@@ -117,6 +117,10 @@ public:
         return hdh;
     }
 
+    int getnamhtai() {
+        return namhtai;
+    }
+
     void nhap() {
         Computer::nhap();
         cout << "Can nang (gram): ";
@@ -220,14 +224,14 @@ void Quanly::sapxeptang() {
 void Quanly::sdnhieunhat() {
     int maxnamsd = 0;
     for (int i = 0; i < n; i++) {
-        int namsd = 2023 - a[i].getnamsx();
+        int namsd = a[i].getnamhtai() - a[i].getnamsx();
         if (namsd > maxnamsd) {
             maxnamsd = namsd;
         }
     }
 
     for (int i = 0; i < n; i++) {
-        int namsd = 2023 - a[i].getnamsx();
+        int namsd = a[i].getnamhtai() - a[i].getnamsx();
         if (namsd == maxnamsd) {
             a[i].xuat();
         }
