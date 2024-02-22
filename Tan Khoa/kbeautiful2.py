@@ -3,7 +3,7 @@ INF = int(1e9)
 for _ in range(int(input())):
 	n = int(input())
 	arr = list(map(int, input().split()))
-	arr.insert(0, 0)
+	arr.insert(0, -1)
 
 	dis = [-INF]*(n+1)
 	pos = [0]*(n+1)

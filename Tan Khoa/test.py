@@ -21,9 +21,9 @@ def invr():
     return map(int, input().split())
 
 # Precompute
-s = [0]*20
+s = [0]*100
 s[1] = 45
-for i in range(2, 7):
+for i in range(2, 100):
     s[i] = s[i-1]*10 + 45*int(pow(10, i-1))
 
 ############ ---- Other Functions ---- ############
