@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "G:\code\Le_Duc_Phuc_Long\test.py", line 8, in <module>
+    pritn("Hi")
+    ^^^^^
+NameError: name 'pritn' is not defined. Did you mean: 'print'?

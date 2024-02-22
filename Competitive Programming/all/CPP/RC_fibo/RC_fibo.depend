@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1602079583 source:d:\cpp\cpp_of_cb\rc_fibo\main.cpp
+	<iostream>
+	<cstdlib>
+	<array>
+

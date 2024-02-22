@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1613915089 source:f:\cpp\cpp_of_cb\randoma1\main.cpp
+	<windows.h>
+	<iostream>
+	<string>
+	<cstdlib>
+	<unistd.h>
+	<fstream>
+	<array>
+	<sstream>
+

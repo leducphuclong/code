@@ -1,0 +1,59 @@
+// Copyright (c) 2023, Le Duc Phuc Long
+
+/*If you don't think twice, you have to code twice.*/
+
+// Include
+#include <bits/stdc++.h>  // NOLINT
+// #include <conio.h>
+
+// Namespace
+using namespace std;  // NOLINT
+
+// Define
+#define nln '\n'
+
+// Typedef and Struct
+typedef int64_t lo;
+
+// Constant
+
+// Declare global variables.
+// End of global variable declaration.
+
+void precompute() {
+}
+
+void solve() {
+    // Input
+    lo n;
+    cin >> n;
+    lo arr[n+1];
+    for (lo i = 1; i <= n; ++i)
+        cin >> arr[i];
+    // Solve
+    lo dp[n+1];
+    lo res = LLONG_MIN;
+    for (lo i = 1; i <= n; ++i) {
+        dp[i] = 1;
+        for (lo j = 1; j < i; ++j)
+            if (arr[i] > arr[j] && dp[j]+1 > dp[i])
+                dp[i] = dp[j]+1;
+        res = max(res, dp[i]);
+    }
+    cout << res << nln;
+}
+
+int main(int argc, char* argv[]) {
+    // freopen("liq.inp", "r", stdin);
+    // freopen("liq.out", "w", stdout);
+    cin.tie(0)->sync_with_stdio(0);
+    cout.tie(0)->sync_with_stdio(0);
+    int T = 1;
+    // cin >> T;
+    precompute();
+    while (T--) {
+        solve();
+    }
+    cerr << "It's ok Long, Good for now !!" << nln;
+    return 0;
+}

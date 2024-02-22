@@ -1,0 +1,8 @@
+
+ma hoa don : 2
+ten khach hang : Long
+ten mon an            so luong 
+13                        3
+tong so mon an cua ban la: 6
+cam on va chuc 'Long' ngon mieng.
+tong so tien cua ban la: 2400000

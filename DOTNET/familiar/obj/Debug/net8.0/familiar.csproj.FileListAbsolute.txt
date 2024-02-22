@@ -1,0 +1,15 @@
+C:\code\DOTNET\familiar\bin\Debug\net8.0\familiar.exe
+C:\code\DOTNET\familiar\bin\Debug\net8.0\familiar.deps.json
+C:\code\DOTNET\familiar\bin\Debug\net8.0\familiar.runtimeconfig.json
+C:\code\DOTNET\familiar\bin\Debug\net8.0\familiar.dll
+C:\code\DOTNET\familiar\bin\Debug\net8.0\familiar.pdb
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.GeneratedMSBuildEditorConfig.editorconfig
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.AssemblyInfoInputs.cache
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.AssemblyInfo.cs
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.csproj.CoreCompileInputs.cache
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.sourcelink.json
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.dll
+C:\code\DOTNET\familiar\obj\Debug\net8.0\refint\familiar.dll
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.pdb
+C:\code\DOTNET\familiar\obj\Debug\net8.0\familiar.genruntimeconfig.cache
+C:\code\DOTNET\familiar\obj\Debug\net8.0\ref\familiar.dll

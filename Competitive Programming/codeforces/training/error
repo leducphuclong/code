@@ -1,0 +1,4 @@
+  File "G:\code\Competitive Programming\codeforces\training\D_Flipper.cpp", line 3
+    /*If you don't think twice, you have to code twice.*/
+                ^
+SyntaxError: unterminated string literal (detected at line 3)

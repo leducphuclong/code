@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1602314966 source:d:\cpp\cpp_of_cb\rc_quick_sort\main.cpp
+	<iostream>
+	<ctime>
+	<array>
+
