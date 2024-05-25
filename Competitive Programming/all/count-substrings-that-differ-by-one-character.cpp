@@ -1,46 +1,139 @@
-#include <bits/stdc++.h>
+// Arcording to: https://www.techiedelight.com/cpp-implementation-trie-data-structure/
+#include <iostream>
 
 using namespace std;
 
-#define ll long long
+#define CHAR_SIZE 26
 #define nln '\n'
 
-vector<string> substrings(string s) {
-	vector<string> res;
-	int n = s.size();
-	for (int i = 1; i <= n; ++i)
-		for (int left = 0; left <= n-i; ++left) {
-			res.push_back("");
-			for (int k = left; k < left+i; ++k)
-				res.back().push_back(s[k]);
-		}
-	return res;
-}
+class Trie {
+public:
+	int isLeaf = 0;
+	Trie* character[CHAR_SIZE];
 
-int main() {
-	string s1, s2;
-	cin >> s1 >> s2;
-	map<string, int> cnt;
-	for (auto s : substrings(s1))
-		for (int i = 0; i < static_cast<int>(s.size()); ++i) {
-			string tmp = s;
-			tmp.erase(tmp.begin()+i);
-			cnt[tmp]++;
-		}
-
-	ll ans = 0;
-	for (auto s : substrings(s2)) {
-		cout << " ----------------- " << nln;
-		cout << s << " ~ " << cnt[s] << nln;
-		for (int i = 0; i < static_cast<int>(s.size()); ++i) {
-			string tmp = s;
-			tmp.erase(tmp.begin()+i);
-			cout << tmp << " ~ " << cnt[tmp] << nln;
-			ans += cnt[tmp];
-		}
+	Trie() {
+		this->isLeaf = 0;
+		for (int i = 0; i < CHAR_SIZE; ++i)
+			this->character[i] = nullptr;
 	}
 
-	cout << ans << nln;
+	void insert(string);
+	bool deletion(Trie*&, string);
+	int search(string);
+	bool haveChildren(Trie const*);
+	void print(Trie const*, string);
+};
 
-	return 0;
+void Trie::insert(string key) {
+    Trie* cur = this; // point to root of this tree
+    for (auto c : key) {
+        if (!cur->character[c-'a']) {
+        	cur->noChild++;
+            cur->character[c-'a'] = new Trie(); // create new node if not already exists
+        }
+        cur = cur->character[c-'a'];
+    }
+    cur->isLeaf++;
+}
+
+int Trie::search(string key) {
+	if (!this)
+		return false;
+	Trie* cur = this;
+	for (auto c : key) {
+		cur = cur->character[c-'a'];
+		if (!cur) {
+			return false;
+		}
+	}
+	return cur->isLeaf;
+}
+
+bool Trie::haveChildren(Trie const* cur) {
+	if (!cur)
+		return false;
+	for (int i = 0; i < CHAR_SIZE; ++i)
+		if (cur->character[i])
+			return true;
+	return false;
+}
+
+bool Trie::deletion(Trie*& cur, string key) {
+	if (!cur)
+		return false;
+
+	if (key.length()) {
+		bool child_deleted = cur->character[key[0]-'a'] && deletion(cur->character[key[0]-'a'], key.substr(1));
+		if (child_deleted && !cur->isLeaf && !haveChildren(cur)) {
+			delete cur;
+			cur = nullptr;
+			return true;
+		} else {
+			if (child_deleted)
+				cur->noChild--;
+			return false;
+		}
+	} else {
+		if (cur->isLeaf && !haveChildren(cur)) {
+			cur->isLeaf--;
+			if (cur->isLeaf == 0) {
+				delete cur;
+				cur = nullptr;
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			if (cur->isLeaf)
+				cur->isLeaf--;
+			return false;
+		}
+	}
+}
+
+void Trie::print(Trie const* cur, string word) {
+	if (!cur)
+		return;
+
+	if (cur->isLeaf)
+		cout << "word: " << word << " - " << cur->isLeaf << nln;
+
+	for (int i = 0; i < CHAR_SIZE; ++i)
+		if (cur->character[i])
+			print(cur->character[i], word + static_cast<char>(i+'a'));
+}
+
+// C++ implementation of Trie data structure
+int main()
+{
+    Trie* head = new Trie();
+    string s = "ab", t = "bb";
+
+    int n = s.size(), m = t.size();
+    for (int i = 1; i <= n; ++i)
+    	for (int j = 0; j < n-i+1; ++j)
+    		head->insert(s.substr(j, i));
+
+    // head->print(head, "");
+    // cout << nln << nln;
+  
+    int res = 0;
+    for (int i = 1; i <= m; ++i)
+    	for (int j = 0; j < m-i+1; ++j) {
+    		string sub = t.substr(j, i);
+    		for (int k = 0; k < sub.length(); ++k) {
+    			for (char ch = 'a'; ch <= 'z'; ++ch) {
+    				if (sub[k] != ch) {
+    					char tmp = sub[k];
+    					sub[k] = ch;
+    					res += head->search(sub);
+    					sub[k] = tmp;
+    				}
+    			}
+    		}
+    	}
+
+    cout << res << nln;
+
+    return 0;
 }

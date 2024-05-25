@@ -1,0 +1,107 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\code\\DOTNET\\test\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|C:\\code\\DOTNET\\test\\test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|solutionrelative:test\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|C:\\code\\DOTNET\\test\\test\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|solutionrelative:test\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9EF97C73-7357-4FFB-AA17-DA586DF469DB}|comlogin2\\comlogin2.csproj|c:\\code\\dotnet\\test\\comlogin2\\usercontrol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{9EF97C73-7357-4FFB-AA17-DA586DF469DB}|comlogin2\\comlogin2.csproj|solutionrelative:comlogin2\\usercontrol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|C:\\code\\DOTNET\\test\\test\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|solutionrelative:test\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|C:\\code\\DOTNET\\test\\test\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3EB9A5A3-EEAB-49A2-8784-A21B5EF1A4C3}|test\\test.csproj|solutionrelative:test\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserControl1.cs [Design]",
+              "DocumentMoniker": "C:\\code\\DOTNET\\test\\comlogin2\\UserControl1.cs",
+              "RelativeDocumentMoniker": "comlogin2\\UserControl1.cs",
+              "ToolTip": "C:\\code\\DOTNET\\test\\comlogin2\\UserControl1.cs [Design]",
+              "RelativeToolTip": "comlogin2\\UserControl1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T02:49:41.551Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\code\\DOTNET\\test\\test\\Form1.cs",
+              "RelativeDocumentMoniker": "test\\Form1.cs",
+              "ToolTip": "C:\\code\\DOTNET\\test\\test\\Form1.cs",
+              "RelativeToolTip": "test\\Form1.cs",
+              "ViewState": "AQIAADQAAAAAAAAAAAAgwDwAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T00:58:35.134Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\code\\DOTNET\\test\\test\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "test\\Form1.Designer.cs",
+              "ToolTip": "C:\\code\\DOTNET\\test\\test\\Form1.Designer.cs",
+              "RelativeToolTip": "test\\Form1.Designer.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAEwCgAAABfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T01:23:33Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\code\\DOTNET\\test\\test\\Program.cs",
+              "RelativeDocumentMoniker": "test\\Program.cs",
+              "ToolTip": "C:\\code\\DOTNET\\test\\test\\Program.cs",
+              "RelativeToolTip": "test\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T01:03:02.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\code\\DOTNET\\test\\test\\Form1.cs",
+              "RelativeDocumentMoniker": "test\\Form1.cs",
+              "ToolTip": "C:\\code\\DOTNET\\test\\test\\Form1.cs [Design]",
+              "RelativeToolTip": "test\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-20T00:57:46.719Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+C:\code\DOTNET\test\comlogin2\bin\Debug\comlogin2.dll
+C:\code\DOTNET\test\comlogin2\bin\Debug\comlogin2.pdb
+C:\code\DOTNET\test\comlogin2\obj\Debug\comlogin2.csproj.AssemblyReference.cache
+C:\code\DOTNET\test\comlogin2\obj\Debug\comlogin2.csproj.CoreCompileInputs.cache
+C:\code\DOTNET\test\comlogin2\obj\Debug\comlogin2.dll
+C:\code\DOTNET\test\comlogin2\obj\Debug\comlogin2.pdb

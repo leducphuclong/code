@@ -1,0 +1,8 @@
+C:\code\DOTNET\test\comLogin\bin\Debug\comLogin.dll
+C:\code\DOTNET\test\comLogin\bin\Debug\comLogin.pdb
+C:\code\DOTNET\test\comLogin\obj\Debug\comLogin.csproj.AssemblyReference.cache
+C:\code\DOTNET\test\comLogin\obj\Debug\comLogin.UserControl1.resources
+C:\code\DOTNET\test\comLogin\obj\Debug\comLogin.csproj.GenerateResource.cache
+C:\code\DOTNET\test\comLogin\obj\Debug\comLogin.csproj.CoreCompileInputs.cache
+C:\code\DOTNET\test\comLogin\obj\Debug\comLogin.dll
+C:\code\DOTNET\test\comLogin\obj\Debug\comLogin.pdb
